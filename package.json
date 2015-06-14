@@ -1,0 +1,44 @@
+{
+  "name": "lowbrow",
+  "productName": "Lowbrow",
+  "version": "1.0.0",
+  "description": "A really minimal browser for development",
+  "author": {
+    "name": "Kurtis Rainbolt-Greene",
+    "email": "me@kurtisrainboltgreene.name",
+    "url": "http://www.kurtisrainboltgreene.name"
+  },
+  "license": "MIT",
+  "keywords": [
+    "browser"
+  ],
+  "engine": {
+    "node": ">=0.12.0"
+  },
+  "files": [
+    "browser/application.js",
+    "templates/application.html"
+  ],
+  "main": "./browser/application.js",
+  "private": false,
+  "scripts": {
+    "run": "electron .",
+    "clean": "rm -rf ./releases/*",
+    "clean:macos": "rm -rf ./releases/macos",
+    "clean:win": "rm -rf ./releases/win",
+    "build": "npm run build:macos",
+    "build:macos": "npm run clean:macos && npm run build:macos:x64",
+    "build:macos:x64": "electron-packager . 'Lowbrow' --platform=darwin --arch=x64 --version=0.28.0 --app-version=1.0.0 --out=releases/macos/x64 --icon=assets/macos/lowbrow.icns",
+    "pack": "npm run pack:macos",
+    "pack:macos": "npm run build:macos && npm run pack:macos:x64",
+    "pack:macos:x64": "electron-builder 'releases/macos/x64/Lowbrow.app' --platform=macos --out=releases/macos --config=packager.json"
+  },
+  "dependencies": {
+    "electron-debug": "^0.1.0"
+  },
+  "devDependencies": {
+    "electron-builder": "git@github.com:loopline-systems/electron-builder.git",
+    "electron-packager": "git@github.com:maxogden/electron-packager.git",
+    "electron-prebuilt": "git@github.com:mafintosh/electron-prebuilt.git"
+  }
+}
