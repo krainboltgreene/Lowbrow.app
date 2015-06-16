@@ -14,11 +14,8 @@ Application.on("window-all-closed", function() {
 });
 
 Application.on("ready", function() {
-
   main = new BrowserWindow({});
-  main.setFullScreen(true);
-  main.loadUrl("file://" + __dirname + "/../templates/application.html");
-  main.openDevTools();
+  main.loadUrl("file://" + __dirname + "/../renderer/templates/application.html");
 
   main.on("closed", function() {
     main = null;

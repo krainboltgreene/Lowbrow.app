@@ -17,21 +17,39 @@
   },
   "files": [
     "browser/application.js",
-    "templates/application.html"
+    "renderer/scripts/application.js",
+    "renderer/styles/application.css",
+    "renderer/templates/application.html"
   ],
   "main": "./browser/application.js",
   "private": false,
   "scripts": {
     "run": "electron .",
+    "all": "npm run clean && npm run build && npm run pack",
+
+
     "clean": "rm -rf ./releases/*",
+
     "clean:macos": "rm -rf ./releases/macos",
     "clean:win": "rm -rf ./releases/win",
-    "build": "npm run build:macos",
-    "build:macos": "npm run clean:macos && npm run build:macos:x64",
-    "build:macos:x64": "electron-packager . 'Lowbrow' --platform=darwin --arch=x64 --version=0.28.0 --app-version=1.0.0 --out=releases/macos/x64 --icon=assets/macos/lowbrow.icns",
-    "pack": "npm run pack:macos",
-    "pack:macos": "npm run build:macos && npm run pack:macos:x64",
-    "pack:macos:x64": "electron-builder 'releases/macos/x64/Lowbrow.app' --platform=macos --out=releases/macos --config=packager.json"
+
+
+    "build": "npm run build:macos && npm run build:linux",
+
+    "build:macos": "npm run build:macos:x64",
+    "build:macos:x64": "electron-packager . 'Lowbrow' --platform=darwin --arch=x64 --version=0.28.0 --app-version=1.0.0 --out=releases/build/macos/x64 --icon=assets/macos/lowbrow.icns --ignore=\"(node_modules/electron-packager|node_modules/electron-builder|node_modules/electron-prebuilt|release|tests|assets|.bowerrc|.gitignore|.npmrc|bower.json|packager.json|README.md)\"",
+
+    "build:linux": "npm run build:linux:x64",
+    "build:linux:x64": "electron-packager ./ 'Lowbrow' --platform=linux --arch=x64 --version=0.28.0 --app-version=1.0.0 --out=releases/build/linux/x64/lowbrow --icon=assets/linux/icon.ico --ignore=\"(node_modules/electron-packager|node_modules/electron-builder|node_modules/electron-prebuilt|release|tests|assets|.bowerrc|.gitignore|.npmrc|bower.json|packager.json|README.md)\"",
+
+
+    "pack": "npm run pack:macos && npm run pack:linux",
+
+    "pack:macos": "npm run pack:macos:x64",
+    "pack:macos:x64": "electron-builder 'releases/build/macos/x64/Lowbrow.app' --platform=macos --out=releases/package/macos/x64 --config=packager.json",
+
+    "pack:linux": "npm run pack:linux:x64",
+    "pack:linux:x64": "tar -vczf 'releases/package/linux/x64/lowbrow.tar.gz' 'releases/build/linux/x64/lowbrow'"
   },
   "dependencies": {
     "electron-debug": "^0.1.0"
