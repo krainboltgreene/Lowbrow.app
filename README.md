@@ -1,20 +1,16 @@
+Lowbrow.app
+===========
 
-``` json
- && npm run build:win
-"build:win": "npm run build:win:ia32",
-"build:win:ia32": "npm run clean && electron-packager ./ 'Lowbrow' --platform=win32 --arch=ia32 --version=0.28.0 --app-version=1.0.0 --out=releases/win/ia32 --icon=assets/win/icon.ico",
-"build:linux": "npm run build:linux:x64",
-"build:linux:x64": "npm run clean && electron-packager ./ 'Lowbrow' --platform=linux --arch=x64 --version=0.28.0 --app-version=1.0.0 --out=releases/linux/x64 --icon=assets/linux/icon.ico",
+You're working on your latest web application and you realize it's time to smoke test your interface. Gotta check everything lines up! You open (Chrome| Firefox|Safari|Explorer) and 30s later you're still loading 100 tabs, 15 extensions, and connecting to some secret HTTP API to deliver user statistics.
 
- && npm run pack:win
-"pack:win": "npm run build:win && electron-builder 'releases/macos/Lowbrow-win32' --platform=win --out=releases/win --config=packager.json"
+You just wanted to test `localhost:3000`.
 
-```
+Lowbrow solves the problem of just needing a HTML5, CSS3, JS E6 compliant browser. It has the same developer tools as every Webkit browser. It takes up very little memory, is fast to boot, and gets the fuck out of your way.
 
 - [ ] Make Lowbrow smaller (100mb unzipped)
 - [ ] Make Lowbrow zipped by default
 - [ ] Make Lowbrow fast to boot
-- [ ] Design a Lowbrow logo
+- [ ] Design a Lowbrow logo/icons
 - [ ] Make the location bar bigger
 - [ ] Make the location bar autocomplete
 - [ ] Allow the user to devtools into the webview
@@ -23,3 +19,9 @@
 - [ ] Drop jQuery
 - [ ] Auto-remove files from releases
 - [ ] Get platform specific menus working
+- [ ] Make sure that we auto-release on github with mac, win, and linux builds
+- [ ] Get windows builds working
+- [ ] Clean up configration
+- [ ] Switch to real build tool
+- [ ] Pretty up the dmg view
+
