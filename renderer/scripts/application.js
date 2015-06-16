@@ -18,12 +18,12 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
       },
       {
         label: "Hide Lowbrow",
-        accelerator: "Command+H",
+        accelerator: "Super+H",
         selector: "hide:"
       },
       {
         label: "Hide Others",
-        accelerator: "Command+Shift+H",
+        accelerator: "Super+Shift+H",
         selector: "hideOtherApplications:"
       },
       {
@@ -35,7 +35,7 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
       },
       {
         label: "Quit",
-        accelerator: "Command+Q",
+        accelerator: "Super+Q",
         selector: "terminate:"
       },
     ]
@@ -45,12 +45,12 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
     submenu: [
       {
         label: "Undo",
-        accelerator: "Command+Z",
+        accelerator: "Super+Z",
         selector: "undo:"
       },
       {
         label: "Redo",
-        accelerator: "Shift+Command+Z",
+        accelerator: "Shift+Super+Z",
         selector: "redo:"
       },
       {
@@ -58,22 +58,22 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
       },
       {
         label: "Cut",
-        accelerator: "Command+X",
+        accelerator: "Super+X",
         selector: "cut:"
       },
       {
         label: "Copy",
-        accelerator: "Command+C",
+        accelerator: "Super+C",
         selector: "copy:"
       },
       {
         label: "Paste",
-        accelerator: "Command+V",
+        accelerator: "Super+V",
         selector: "paste:"
       },
       {
         label: "Select All",
-        accelerator: "Command+A",
+        accelerator: "Super+A",
         selector: "selectAll:"
       }
     ]
@@ -83,12 +83,12 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
     submenu: [
       {
         label: "Reload",
-        accelerator: "Command+R",
+        accelerator: "Super+R",
         click: function() { Remote.getCurrentWindow().reload(); }
       },
       {
         label: "Toggle DevTools",
-        accelerator: "Alt+Command+I",
+        accelerator: "Alt+Super+I",
         click: function() { Remote.getCurrentWindow().toggleDevTools(); }
       },
     ]
@@ -98,12 +98,12 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
     submenu: [
       {
         label: "Minimize",
-        accelerator: "Command+M",
+        accelerator: "Super+M",
         selector: "performMiniaturize:"
       },
       {
         label: "Close",
-        accelerator: "Command+W",
+        accelerator: "Super+W",
         selector: "performClose:"
       },
       {
