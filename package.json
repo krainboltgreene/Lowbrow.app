@@ -19,41 +19,55 @@
   "engine": {
     "node": ">=0.12.0"
   },
-  "files": [
-    "browser/application.js",
-    "renderer/scripts/application.js",
-    "renderer/styles/application.css",
-    "renderer/templates/application.html"
-  ],
   "main": "./browser/application.js",
   "private": false,
+  "config": {
+    "electron": {
+      "version": "0.28.1"
+    },
+    "files": [
+      "browser/",
+      "renderer/",
+      "vendor/",
+      "package.json",
+      "LICENSE.md"
+    ],
+    "ignore": "(node_modules/electron-.+|node_modules/electron-*|releases/|tests/|assets/|.bowerrc|.gitignore|.npmrc|bower.json|packager.json|README.md)"
+  },
   "scripts": {
     "run": "electron .",
     "all": "npm run clean && npm run build && npm run pack",
 
+    "build": "npm run build:osx && npm run build:linux",
 
-    "clean": "rm -rf ./releases/*",
-
-    "clean:macos": "rm -rf ./releases/macos",
-    "clean:win": "rm -rf ./releases/win",
-
-
-    "build": "npm run build:macos && npm run build:linux",
-
-    "build:macos": "npm run build:macos:x64",
-    "build:macos:x64": "electron-packager . 'Lowbrow' --platform=darwin --arch=x64 --version=0.28.0 --app-version=1.0.0 --out=releases/build/macos/x64 --icon=assets/macos/lowbrow.icns --ignore=\"(node_modules/electron-packager|node_modules/electron-builder|node_modules/electron-prebuilt|release|tests|assets|.bowerrc|.gitignore|.npmrc|bower.json|packager.json|README.md)\"",
+    "build:osx": "npm run build:osx:x64",
+    "prebuild:osx:x64": "npm run clean:build:osx:x64",
+    "build:osx:x64": "electron-packager ./ 'Lowbrow' --platform=darwin --arch=x64 --version=$npm_package_config_electron_version --app-version=$npm_package_version --out=releases/build/osx/x64 --icon=assets/osx/lowbrow.icns --ignore='$npm_package_config_ignore'",
 
     "build:linux": "npm run build:linux:x64",
-    "build:linux:x64": "electron-packager ./ 'Lowbrow' --platform=linux --arch=x64 --version=0.28.0 --app-version=1.0.0 --out=releases/build/linux/x64/lowbrow --icon=assets/linux/icon.ico --ignore=\"(node_modules/electron-packager|node_modules/electron-builder|node_modules/electron-prebuilt|release|tests|assets|.bowerrc|.gitignore|.npmrc|bower.json|packager.json|README.md)\"",
+    "prebuild:linux:x64": "npm run clean:build:linux:x64",
+    "build:linux:x64": "electron-packager ./ 'Lowbrow' --platform=linux --arch=x64 --version=$npm_package_config_electron_version --app-version=$npm_package_version --out=releases/build/linux/x64/lowbrow --icon=assets/linux/icon.ico --ignore=\"$npm_package_config_ignore\"",
 
 
-    "pack": "npm run pack:macos && npm run pack:linux",
+    "pack": "npm run pack:osx && npm run pack:linux",
 
-    "pack:macos": "npm run pack:macos:x64",
-    "pack:macos:x64": "electron-builder 'releases/build/macos/x64/Lowbrow.app' --platform=macos --out=releases/package/macos/x64 --config=packager.json",
+    "pack:osx": "npm run pack:osx:x64",
+    "prepack:osx:x64": "npm run clean:pack:osx:x64",
+    "pack:osx:x64": "electron-builder 'releases/build/osx/x64/Lowbrow.app' --platform=macos --out=releases/package/osx/x64 --config=packager.json",
 
     "pack:linux": "npm run pack:linux:x64",
-    "pack:linux:x64": "RELEASE_DIR=releases/package/linux/x64; mkdir -p $RELEASE_DIR; tar -vczf $RELEASE_DIR/lowbrow.tar.gz -C releases/build/linux/x64/ lowbrow/"
+    "prepack:linux:x64": "npm run clean:pack:linux:x64",
+    "pack:linux:x64": "tar -vczf 'releases/package/linux/x64/lowbrow.tar.gz' -C 'releases/build/linux/x64/' lowbrow/",
+
+    "clean": "rm -rf ./releases",
+
+    "clean:build:osx:x64": "rm -rf ./releases/build/osx/x64",
+    "clean:build:win:x64": "rm -rf ./releases/build/win/x64",
+    "clean:build:linux:x64": "rm -rf ./releases/build/linux/x64",
+
+    "clean:pack:osx:x64": "rm -rf ./releases/package/osx/x64",
+    "clean:pack:win:x64": "rm -rf ./releases/package/win/x64",
+    "clean:pack:linux:x64": "rm -rf ./releases/package/linux/x64"
   },
   "dependencies": {
     "electron-debug": "^0.1.0"
