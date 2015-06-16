@@ -23,4 +23,3 @@
 - [ ] Drop jQuery
 - [ ] Auto-remove files from releases
 - [ ] Get platform specific menus working
-- [ ] Get Linux .tar.gz built correctly

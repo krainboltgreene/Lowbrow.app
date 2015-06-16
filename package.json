@@ -8,6 +8,10 @@
     "email": "me@kurtisrainboltgreene.name",
     "url": "http://www.kurtisrainboltgreene.name"
   },
+  "repository": {
+     "type": "git",
+     "url": "git://github.com/krainboltgreene/Lowbrow.app.git"
+  },
   "license": "MIT",
   "keywords": [
     "browser"
@@ -49,14 +53,14 @@
     "pack:macos:x64": "electron-builder 'releases/build/macos/x64/Lowbrow.app' --platform=macos --out=releases/package/macos/x64 --config=packager.json",
 
     "pack:linux": "npm run pack:linux:x64",
-    "pack:linux:x64": "tar -vczf 'releases/package/linux/x64/lowbrow.tar.gz' 'releases/build/linux/x64/lowbrow'"
+    "pack:linux:x64": "RELEASE_DIR=releases/package/linux/x64; mkdir -p $RELEASE_DIR; tar -vczf $RELEASE_DIR/lowbrow.tar.gz -C releases/build/linux/x64/ lowbrow/"
   },
   "dependencies": {
     "electron-debug": "^0.1.0"
   },
   "devDependencies": {
-    "electron-builder": "git@github.com:loopline-systems/electron-builder.git",
-    "electron-packager": "git@github.com:maxogden/electron-packager.git",
-    "electron-prebuilt": "git@github.com:mafintosh/electron-prebuilt.git"
+    "electron-builder": "git://github.com/loopline-systems/electron-builder.git",
+    "electron-packager": "git://github.com/maxogden/electron-packager.git",
+    "electron-prebuilt": "git://github.com/mafintosh/electron-prebuilt.git"
   }
 }
