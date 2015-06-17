@@ -17,11 +17,11 @@ Lowbrow solves the problem of just needing a HTML5, CSS3, JS E6 compliant browse
 - [ ] Allow the user to copy/paste from the app/webview
 - [ ] Drop bootstrap
 - [ ] Drop jQuery
-- [ ] Auto-remove files from releases
+- [x] Auto-remove files from releases
 - [ ] Get platform specific menus working
 - [ ] Make sure that we auto-release on github with mac, win, and linux builds
 - [ ] Get windows builds working
-- [ ] Clean up configration
-- [ ] Switch to real build tool
+- [x] Clean up configration
+- [x] Switch to real build tool
 - [ ] Pretty up the dmg view
 
