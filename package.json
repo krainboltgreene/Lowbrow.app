@@ -29,6 +29,7 @@
       "browser/",
       "renderer/",
       "vendor/",
+      "node_modules/",
       "package.json",
       "LICENSE.md"
     ],
