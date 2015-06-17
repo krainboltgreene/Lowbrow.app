@@ -57,7 +57,7 @@
 
     "pack:linux": "npm run pack:linux:x64",
     "prepack:linux:x64": "npm run clean:pack:linux:x64",
-    "pack:linux:x64": "tar -vczf 'releases/package/linux/x64/lowbrow.tar.gz' -C 'releases/build/linux/x64/' lowbrow/",
+    "pack:linux:x64": "mkdir -p 'releases/package/linux/x64' && tar -v -c -z -f 'releases/package/linux/x64/lowbrow.tar.gz' -C 'releases/build/linux/x64/' lowbrow/",
 
     "clean": "rm -rf ./releases",
 
