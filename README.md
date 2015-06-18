@@ -25,3 +25,10 @@ Lowbrow solves the problem of just needing a HTML5, CSS3, JS E6 compliant browse
 - [x] Switch to real build tool
 - [ ] Pretty up the dmg view
 
+
+ && npm run build:win
+"build:win": "npm run build:win:ia32",
+"build:win:ia32": "npm run clean && electron-packager ./ 'Lowbrow' --platform=win32 --arch=ia32 --version=0.28.0 --app-version=1.0.0 --out=releases/win/ia32 --icon=assets/win/icon.ico",
+
+ && npm run pack:win
+"pack:win": "npm run build:win && electron-builder 'releases/osx/Lowbrow-win32' --platform=win --out=releases/win --config=packager.json"
