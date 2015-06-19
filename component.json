@@ -9,7 +9,6 @@
     "source/styles/core.css"
   ],
   "dependencies": {
-    "necolas/normalize.css": "3.0.3",
-    "components/jquery": "2.1.4"
+    "necolas/normalize.css": "3.0.3"
   }
 }
