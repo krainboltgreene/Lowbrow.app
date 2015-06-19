@@ -19,7 +19,7 @@
   "engine": {
     "node": ">=0.12.0"
   },
-  "main": "./browser/application.js",
+  "main": "./browser/lowbrow.js",
   "private": false,
   "config": {
     "electron": {
