@@ -1,3 +1,9 @@
+if (process.platform == "darwin") {
+    modifier = "Command";
+} else {
+    modifier = "Control";
+}
+
 Menu.setApplicationMenu(Menu.buildFromTemplate([
   {
     label: "Lowbrow",
@@ -18,12 +24,12 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
       },
       {
         label: "Hide Lowbrow",
-        accelerator: "Super+H",
+        accelerator: modifier + "+H",
         selector: "hide:"
       },
       {
         label: "Hide Others",
-        accelerator: "Super+Shift+H",
+        accelerator: modifier + "+Shift+H",
         selector: "hideOtherApplications:"
       },
       {
@@ -35,7 +41,7 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
       },
       {
         label: "Quit",
-        accelerator: "Super+Q",
+        accelerator: modifier + "+Q",
         selector: "terminate:"
       },
     ]
@@ -45,12 +51,12 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
     submenu: [
       {
         label: "Undo",
-        accelerator: "Super+Z",
+          accelerator: modifier + "+Z",
         selector: "undo:"
       },
       {
         label: "Redo",
-        accelerator: "Shift+Super+Z",
+        accelerator: "Shift+" + modifier + "+Z",
         selector: "redo:"
       },
       {
@@ -58,22 +64,22 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
       },
       {
         label: "Cut",
-        accelerator: "Super+X",
+        accelerator: modifier + "+X",
         selector: "cut:"
       },
       {
         label: "Copy",
-        accelerator: "Super+C",
+        accelerator: "modifier" + "+C",
         selector: "copy:"
       },
       {
         label: "Paste",
-        accelerator: "Super+V",
+        accelerator: modifier + "+V",
         selector: "paste:"
       },
       {
         label: "Select All",
-        accelerator: "Super+A",
+        accelerator: modifier + "+A",
         selector: "selectAll:"
       }
     ]
@@ -83,12 +89,12 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
     submenu: [
       {
         label: "Reload",
-        accelerator: "Super+R",
+        accelerator: modifier + "+R",
         click: function() { Remote.getCurrentWindow().reload(); }
       },
       {
         label: "Toggle DevTools",
-        accelerator: "Alt+Super+I",
+        accelerator: "Alt+" + modifier + "+I",
         click: function() { Remote.getCurrentWindow().toggleDevTools(); }
       },
     ]
@@ -98,12 +104,12 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
     submenu: [
       {
         label: "Minimize",
-        accelerator: "Super+M",
+        accelerator: modifier + "+M",
         selector: "performMiniaturize:"
       },
       {
         label: "Close",
-        accelerator: "Super+W",
+        accelerator: modifier + "+W",
         selector: "performClose:"
       },
       {
