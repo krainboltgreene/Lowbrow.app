@@ -37,7 +37,6 @@
   },
   "scripts": {
     "run": "electron .",
-    "all": "npm run clean && npm run build && npm run pack",
 
     "build": "npm run build:osx && npm run build:linux",
 
@@ -59,6 +58,7 @@
     "pack:linux": "npm run pack:linux:x64",
     "prepack:linux:x64": "npm run build:linux:x64 && npm run clean:pack:linux:x64",
     "pack:linux:x64": "mkdir -p 'releases/package/linux/x64' && tar -v -c -z -f 'releases/package/linux/x64/lowbrow.tar.gz' -C 'releases/build/linux/x64/' lowbrow/",
+
 
     "clean": "rm -rf ./releases",
 
