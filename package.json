@@ -9,8 +9,8 @@
     "url": "http://www.kurtisrainboltgreene.name"
   },
   "repository": {
-     "type": "git",
-     "url": "git://github.com/krainboltgreene/Lowbrow.app.git"
+    "type": "git",
+    "url": "git://github.com/krainboltgreene/Lowbrow.app.git"
   },
   "license": "MIT",
   "keywords": [
