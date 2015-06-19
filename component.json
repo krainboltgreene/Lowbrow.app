@@ -1,7 +1,15 @@
 {
   "name": "Lowbrow.app",
+  "private": true,
+  "main": "source/scripts/application.js",
   "scripts": [
-    "renderer/scripts/application.js"
+    "source/scripts/application.js"
+  ],
+  "templates": [
+    "source/templates/application.html"
+  ],
+  "styles": [
+    "source/styles/application.css"
   ],
   "dependencies": {
     "necolas/normalize.css": "3.0.3",
