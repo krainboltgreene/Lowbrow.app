@@ -29,11 +29,11 @@
       "browser/",
       "renderer/",
       "vendor/",
-      "node_modules/",
+      "node_modules/electron-debug/",
       "package.json",
       "LICENSE.md"
     ],
-    "ignore": "(node_modules/.bin|node_modules/js-beautify|node_modules/tern|node_modules/electron-builder|node_modules/electron-packager|node_modules/electron-prebuilt|releases|tests|assets|.bowerrc|.gitignore|.npmrc|bower.json|packager.json|README.md|.dir-locals.el|result|default.nix)"
+    "ignore": "(node_modules/.bin|node_modules/js-beautify|node_modules/tern|node_modules/electron-packager/|node_modules/electron-builder/|node_modules/electron-prebuilt|node_modules/component|releases/|tests/|assets/|.gitignore|component.json|packager.json|README.md|.dir-locals.el|result|default.nix)"
   },
   "scripts": {
     "run": "electron .",
