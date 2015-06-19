@@ -15,7 +15,7 @@ Lowbrow solves the problem of just needing a HTML5, CSS3, JS E6 compliant browse
 - [ ] Make the location bar autocomplete
 - [ ] Allow the user to devtools into the webview
 - [ ] Allow the user to copy/paste from the app/webview
-- [ ] Drop bootstrap
+- [x] Drop bootstrap
 - [ ] Drop jQuery
 - [x] Auto-remove files from releases
 - [ ] Get platform specific menus working
