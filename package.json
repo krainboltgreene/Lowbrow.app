@@ -29,6 +29,7 @@
       "browser/",
       "renderer/",
       "vendor/",
+      "components/",
       "node_modules/electron-debug/",
       "package.json",
       "LICENSE.md"
