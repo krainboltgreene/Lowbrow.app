@@ -1,3 +1,22 @@
-.portal {
-  height: 100vh;
+input#location {
+  height: 5vh;
+  width: 100vw;
+  padding: 0;
+  padding-left: 50px;
+  padding-right: 50px;
+  border: none;
+  background-color: rgb(52, 152, 219);
+  opacity: 0.25;
+}
+
+input#location:focus {
+  outline: 0;
+  background-color: rgb(52, 152, 219);
+  color: white;
+  opacity: 1.0;
+}
+
+section#portal {
+  height: 95vh;
+  width: 100vw;
 }
