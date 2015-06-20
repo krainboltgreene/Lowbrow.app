@@ -16,7 +16,7 @@ Application.on("window-all-closed", function() {
 
 Application.on("ready", function() {
   main = new BrowserWindow({});
-  main.loadUrl("file://" + __dirname + "/../renderer/templates/application.html");
+  main.loadUrl("file://" + __dirname + "/../renderer/index.html");
   main.on("closed", function() {
     main = null;
   });
