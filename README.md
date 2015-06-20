@@ -11,12 +11,12 @@ Lowbrow solves the problem of just needing a HTML5, CSS3, JS E6 compliant browse
 - [ ] Make Lowbrow zipped by default
 - [ ] Make Lowbrow fast to boot
 - [ ] Design a Lowbrow logo/icons
-- [ ] Make the location bar bigger
+- [x] Make the location bar bigger
 - [ ] Make the location bar autocomplete
 - [ ] Allow the user to devtools into the webview
 - [ ] Allow the user to copy/paste from the app/webview
 - [x] Drop bootstrap
-- [ ] Drop jQuery
+- [x] Drop jQuery
 - [x] Auto-remove files from releases
 - [ ] Get platform specific menus working
 - [ ] Make sure that we auto-release on github with mac, win, and linux builds
