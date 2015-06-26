@@ -1,7 +1,9 @@
 const Menu = require("menu");
 
-const seperator = {
-  type: "seperator"
+const MODIFIER = process.platform == "darwin" ? "Command" : "Control"
+
+const SEPARATOR = {
+  type: "separator"
 }
 
 var shortcut = function() {
@@ -24,38 +26,38 @@ var menuGroup = function(label, items) {
 
 const TEMPLATE = [
   menuGroup("Lowbrow", [
-    menuItem("About Lowbrow", "orderFrontStandardAboutPanel:"),
-    seperator,
+    menuItem("About Lowbrow", null, "orderFrontStandardAboutPanel:", null, null),
+    SEPARATOR,
     menuItem("Services", null, null, []),
-    seperator,
-    menuItem("Hide Lowbrow", shortcut(modifier, "H"), "hide:"),
-    menuItem("Hide Others", shortcut(modifier, "Shift", "H"), "hideOtherApplications:"),
+    SEPARATOR,
+    menuItem("Hide Lowbrow", shortcut(MODIFIER, "H"), "hide:"),
+    menuItem("Hide Others", shortcut(MODIFIER, "Shift", "H"), "hideOtherApplications:"),
     menuItem("Show All", null, "unhideAllApplications:"),
-    seperator,
-    menuItem("Quit", shortcut(modifier, "Q")),
+    SEPARATOR,
+    menuItem("Quit", shortcut(MODIFIER, "Q")),
   ]),
   menuGroup("Edit", [
-    menuItem("Undo", shortcut(modifier, "Z"), "undo:"),
-    menuItem("Redo", shortcut("Shift", modifier, "Z"), "redo:"),
-    seperator,
-    menuItem("Cut", shortcut(modifier, "X"), "cut:"),
-    menuItem("Copy", shortcut(modifier, "C"), "copy:"),
-    menuItem("Paste", shortcut(modifier, "V"), "paste:"),
-    menuItem("Select All", shortcut(modifier, "A"), "selectAll:")
+    menuItem("Undo", shortcut(MODIFIER, "Z"), "undo:"),
+    menuItem("Redo", shortcut("Shift", MODIFIER, "Z"), "redo:"),
+    SEPARATOR,
+    menuItem("Cut", shortcut(MODIFIER, "X"), "cut:"),
+    menuItem("Copy", shortcut(MODIFIER, "C"), "copy:"),
+    menuItem("Paste", shortcut(MODIFIER, "V"), "paste:"),
+    menuItem("Select All", shortcut(MODIFIER, "A"), "selectAll:")
   ]),
   menuGroup("View", [
-    menuItem("Reload", shortcut(modifier, "R"), null, function(){
+    menuItem("Reload", shortcut(MODIFIER, "R"), null, function(){
       main.getCurrentWindow().reload();
     }),
-    menuItem("Toggle DevTools", shortcut("Alt", modifier, "I"), null, function(){
+    menuItem("Toggle DevTools", shortcut("Alt", MODIFIER, "I"), null, function(){
       // Get webview
       // Toggle devtools
     })
   ]),
   menuGroup("Window", [
-    menuItem("Minimize", shortcut(modifier, "M"), "performMiniaturize:"),
-    menuItem("Close", shortcut(modifier, "W"), "performClose:"),
-    seperator,
+    menuItem("Minimize", shortcut(MODIFIER, "M"), "performMiniaturize:"),
+    menuItem("Close", shortcut(MODIFIER, "W"), "performClose:"),
+    SEPARATOR,
     menuItem("Bring All to Front", null, "arrangeInFront:")
   ]),
   menuGroup("Help", [])
