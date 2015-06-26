@@ -4,6 +4,7 @@ const BrowserWindow = require("browser-window");
 
 require("crash-reporter").start();
 require("electron-debug")();
+require("./lowbrow/menu");
 
 let main;
 
