@@ -9,8 +9,8 @@
     "url": "http://www.kurtisrainboltgreene.name"
   },
   "repository": {
-     "type": "git",
-     "url": "git://github.com/krainboltgreene/Lowbrow.app.git"
+    "type": "git",
+    "url": "git://github.com/krainboltgreene/Lowbrow.app.git"
   },
   "license": "MIT",
   "keywords": [
@@ -19,7 +19,7 @@
   "engine": {
     "node": ">=0.12.0"
   },
-  "main": "./browser/application.js",
+  "main": "./browser/lowbrow.js",
   "private": false,
   "config": {
     "electron": {
@@ -29,15 +29,15 @@
       "browser/",
       "renderer/",
       "vendor/",
-      "node_modules/",
+      "components/",
+      "node_modules/electron-debug/",
       "package.json",
       "LICENSE.md"
     ],
-    "ignore": "(node_modules/.bin|node_modules/js-beautify|node_modules/tern|node_modules/electron-builder|node_modules/electron-packager|node_modules/electron-prebuilt|releases|tests|assets|.bowerrc|.gitignore|.npmrc|bower.json|packager.json|README.md|.dir-locals.el|result|default.nix)"
+    "ignore": "(node_modules/.bin|node_modules/js-beautify|node_modules/tern|node_modules/electron-packager/|node_modules/electron-builder/|node_modules/electron-prebuilt|node_modules/component|releases/|tests/|assets/|.gitignore|component.json|packager.json|README.md|.dir-locals.el|result|default.nix)"
   },
   "scripts": {
     "run": "electron .",
-    "all": "npm run clean && npm run build && npm run pack",
 
     "build": "npm run build:osx && npm run build:linux",
 
@@ -60,6 +60,7 @@
     "prepack:linux:x64": "npm run build:linux:x64 && npm run clean:pack:linux:x64",
     "pack:linux:x64": "mkdir -p 'releases/package/linux/x64' && tar -v -c -z -f 'releases/package/linux/x64/lowbrow.tar.gz' -C 'releases/build/linux/x64/' lowbrow/",
 
+
     "clean": "rm -rf ./releases",
 
     "clean:build:osx:x64": "rm -rf ./releases/build/osx/x64",
@@ -74,6 +75,7 @@
     "electron-debug": "^0.1.0"
   },
   "devDependencies": {
+    "component": "^1.1.0",
     "electron-builder": "git://github.com/loopline-systems/electron-builder.git",
     "electron-packager": "git://github.com/maxogden/electron-packager.git",
     "electron-prebuilt": "git://github.com/mafintosh/electron-prebuilt.git"

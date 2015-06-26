@@ -1,0 +1,14 @@
+{
+  "name": "Lowbrow.app",
+  "private": true,
+  "main": "source/scripts/core.js",
+  "scripts": [
+    "source/scripts/core.js"
+  ],
+  "styles": [
+    "source/styles/core.css"
+  ],
+  "dependencies": {
+    "necolas/normalize.css": "3.0.3"
+  }
+}
