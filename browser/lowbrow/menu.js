@@ -1,13 +1,18 @@
 const Menu = require("menu");
 
-const MODIFIER = process.platform == "darwin" ? "Command" : "Control"
+const MODIFIER = "CommandOrControl";
 
+const EMPTY_SUBMENU = [];
+const NO_ACCELERATOR = null;
+const NO_SELECTOR = null;
+const NO_SUBMENU = null;
+const NO_CLICK_ACTION = null;
 const SEPARATOR = {
   type: "separator"
 }
 
 var shortcut = function() {
-  return Array.prototype.slice.call(arguments).join("+")
+  return Array.prototype.slice.call(arguments).join("+");
 }
 
 var menuItem = function(label, accelerator, selector, submenu, click) {
@@ -20,47 +25,94 @@ var menuItem = function(label, accelerator, selector, submenu, click) {
   };
 }
 
+var menuItemWithSelector = function(label, accelerator, selector) {
+  return menuItem(label, accelerator, selector, NO_SUBMENU, NO_CLICK_ACTION);
+}
+
+var menuItemWithClickAction = function(label, accelerator, click) {
+  return menuItem(label, accelerator, NO_SELECTOR, NO_SUBMENU, click);
+}
+
+var subMenu = function(label, accelerator, items) {
+  return menuItem(label, accelerator, NO_SELECTOR, items, NO_CLICK_ACTION);
+}
+
 var menuGroup = function(label, items) {
-  return menuItem(label, null, null, items)
+  return menuItem(label, NO_ACCELERATOR, NO_SELECTOR, items, NO_CLICK_ACTION);
 }
 
 const TEMPLATE = [
   menuGroup("Lowbrow", [
-    menuItem("About Lowbrow", null, "orderFrontStandardAboutPanel:", null, null),
+    menuItemWithSelector("About Lowbrow",
+                         NO_ACCELERATOR,
+                         "orderFrontStandardAboutPanel:"),
     SEPARATOR,
-    menuItem("Services", null, null, []),
+    subMenu("Services",
+            NO_ACCELERATOR,
+            EMPTY_SUBMENU),
     SEPARATOR,
-    menuItem("Hide Lowbrow", shortcut(MODIFIER, "H"), "hide:"),
-    menuItem("Hide Others", shortcut(MODIFIER, "Shift", "H"), "hideOtherApplications:"),
-    menuItem("Show All", null, "unhideAllApplications:"),
+    menuItemWithSelector("Hide Lowbrow",
+                         shortcut(MODIFIER, "H"),
+                         "hide:"),
+    menuItemWithSelector("Hide Others",
+                         shortcut(MODIFIER, "Shift", "H"),
+                         "hideOtherApplications:"),
     SEPARATOR,
-    menuItem("Quit", shortcut(MODIFIER, "Q")),
+    menuItemWithSelector("Quit",
+                         shortcut(MODIFIER, "Shift","Q"),
+                         "terminate:")
   ]),
+
   menuGroup("Edit", [
-    menuItem("Undo", shortcut(MODIFIER, "Z"), "undo:"),
-    menuItem("Redo", shortcut("Shift", MODIFIER, "Z"), "redo:"),
+    menuItemWithSelector("Undo",
+                         shortcut(MODIFIER, "Z"),
+                         "undo:"),
+    menuItemWithSelector("Redo",
+                         shortcut(MODIFIER, "Shift", "Z"),
+                         "redo:"),
     SEPARATOR,
-    menuItem("Cut", shortcut(MODIFIER, "X"), "cut:"),
-    menuItem("Copy", shortcut(MODIFIER, "C"), "copy:"),
-    menuItem("Paste", shortcut(MODIFIER, "V"), "paste:"),
-    menuItem("Select All", shortcut(MODIFIER, "A"), "selectAll:")
+    menuItemWithSelector("Cut",
+                         shortcut(MODIFIER, "X"),
+                         "cut:"),
+    menuItemWithSelector("Copy",
+                         shortcut(MODIFIER, "C"),
+                         "copy:"),
+    menuItemWithSelector("Paste",
+                         shortcut(MODIFIER, "V"),
+                         "paste:"),
+    menuItemWithSelector("Select All",
+                         shortcut(MODIFIER, "A"),
+                         "selectAll:")
   ]),
+
   menuGroup("View", [
-    menuItem("Reload", shortcut(MODIFIER, "R"), null, function(){
-      main.getCurrentWindow().reload();
-    }),
-    menuItem("Toggle DevTools", shortcut("Alt", MODIFIER, "I"), null, function(){
-      // Get webview
-      // Toggle devtools
-    })
+    menuItemWithClickAction("Reload",
+                            shortcut(MODIFIER, "R"),
+                            function(){
+                              main.getCurrentWindow().reload();
+                            }),
+    menuItemWithClickAction("Toggle DevTools",
+                            shortcut(MODIFIER, "Alt", "I"),
+                            function(){
+                              // Get webview
+                              // Toggle devtools
+                            })
   ]),
+
   menuGroup("Window", [
-    menuItem("Minimize", shortcut(MODIFIER, "M"), "performMiniaturize:"),
-    menuItem("Close", shortcut(MODIFIER, "W"), "performClose:"),
+    menuItemWithSelector("Minimize",
+                         shortcut(MODIFIER, "M"),
+                         "performMiniaturize:"),
+    menuItemWithSelector("Close",
+                         shortcut(MODIFIER, "W"),
+                         "performClose:"),
     SEPARATOR,
-    menuItem("Bring All to Front", null, "arrangeInFront:")
+    menuItemWithSelector("Bring All to Front",
+                         NO_ACCELERATOR,
+                         "arrangeInFront:")
   ]),
-  menuGroup("Help", [])
+
+  menuGroup("Help", EMPTY_SUBMENU)
 ]
 
 Menu.setApplicationMenu(Menu.buildFromTemplate(TEMPLATE));
