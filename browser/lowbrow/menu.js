@@ -1,8 +1,4 @@
-const modifier = if (process.platform == "darwin") {
-  return "Command";
-} else {
-  return "Control";
-}
+const Menu = require("menu");
 
 const seperator = {
   type: "seperator"
