@@ -5,7 +5,7 @@ const seperator = {
 }
 
 var shortcut = function() {
-  retrun Array.prototype.slice.call(arguments).join("+")
+  return Array.prototype.slice.call(arguments).join("+")
 }
 
 var menuItem = function(label, accelerator, selector, submenu, click) {
