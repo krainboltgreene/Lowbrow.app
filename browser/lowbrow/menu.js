@@ -22,7 +22,7 @@ var menuGroup = function(label, items) {
   return menuItem(label, null, null, items)
 }
 
-Menu.setApplicationMenu(Menu.buildFromTemplate([
+const TEMPLATE = [
   menuGroup("Lowbrow", [
     menuItem("About Lowbrow", "orderFrontStandardAboutPanel:"),
     seperator,
@@ -59,4 +59,6 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
     menuItem("Bring All to Front", null, "arrangeInFront:")
   ]),
   menuGroup("Help", [])
-]));
+]
+
+Menu.setApplicationMenu(Menu.buildFromTemplate(TEMPLATE));
