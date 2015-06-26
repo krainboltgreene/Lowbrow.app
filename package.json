@@ -54,7 +54,7 @@
 
     "pack:osx": "npm run pack:osx:x64",
     "prepack:osx:x64": "npm run build:osx:x64 && npm run clean:pack:osx:x64",
-    "pack:osx:x64": "electron-builder 'releases/build/osx/x64/Lowbrow.app' --platform=macos --out=releases/package/osx/x64 --config=packager.json",
+    "pack:osx:x64": "electron-builder 'releases/build/osx/x64/Lowbrow.app' --platform=osx --out=releases/package/osx/x64 --config=packager.json",
 
     "pack:linux": "npm run pack:linux:x64",
     "prepack:linux:x64": "npm run build:linux:x64 && npm run clean:pack:linux:x64",
