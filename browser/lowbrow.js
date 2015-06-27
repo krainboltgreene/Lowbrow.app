@@ -4,7 +4,6 @@ const BrowserWindow = require("browser-window");
 
 require("crash-reporter").start();
 require("electron-debug")();
-require("./lowbrow/menu");
 
 let main;
 
@@ -15,6 +14,8 @@ Application.on("window-all-closed", function() {
 });
 
 Application.on("ready", function() {
+  require("./lowbrow/menu");
+
   main = new BrowserWindow({});
   main.loadUrl("file://" + __dirname + "/../renderer/index.html");
   main.on("closed", function() {
