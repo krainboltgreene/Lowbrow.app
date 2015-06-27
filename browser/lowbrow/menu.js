@@ -2,12 +2,12 @@ const Menu = require("menu");
 
 const MODIFIER = "CommandOrControl";
 
-const EMPTY_SUBMENU = [];
-const NO_ACCELERATOR = null;
-const NO_SELECTOR = null;
-const NO_SUBMENU = null;
-const NO_CLICK_ACTION = null;
-const SEPARATOR = {
+var EMPTY_SUBMENU = [];
+var NO_ACCELERATOR = null;
+var NO_SELECTOR = null;
+var NO_SUBMENU = null;
+var NO_CLICK_ACTION = null;
+var SEPARATOR = {
   type: "separator"
 }
 
@@ -16,13 +16,12 @@ var shortcut = function() {
 }
 
 var menuItem = function(label, accelerator, selector, submenu, click) {
-  return {
-    label: label,
-    accelerator: accelerator,
-    selector: selector,
-    submenu: submenu,
-    click: click
-  };
+  var item = { label: label };
+  if(accelerator) { item.accelerator = accelerator };
+  if(selector) { item.selector = selector };
+  if(submenu) { item.submenu = submenu };
+  if(click) { item.click = click };
+  return item;
 }
 
 var menuItemWithSelector = function(label, accelerator, selector) {
