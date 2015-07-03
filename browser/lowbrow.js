@@ -1,6 +1,9 @@
 "use strict"
 const Application = require("app");
+const Menu = require("menu");
 const BrowserWindow = require("browser-window");
+const ApplicationMenu = require("./lowbrow/menu");
+const IPC = require("ipc");
 
 require("crash-reporter").start();
 require("electron-debug")();
@@ -14,10 +17,10 @@ Application.on("window-all-closed", function() {
 });
 
 Application.on("ready", function() {
-  require("./lowbrow/menu");
-
   main = new BrowserWindow({});
+  ApplicationMenu.build(Application, Menu, IPC, main);
   main.loadUrl("file://" + __dirname + "/../renderer/index.html");
+  main.focus();
   main.on("closed", function() {
     main = null;
   });

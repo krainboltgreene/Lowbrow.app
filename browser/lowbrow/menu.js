@@ -1,120 +1,114 @@
-const Menu = require("menu");
-
 const MODIFIER = "CommandOrControl";
 
-var EMPTY_SUBMENU = [];
-var NO_ACCELERATOR = null;
-var NO_SELECTOR = null;
-var NO_SUBMENU = null;
-var NO_CLICK_ACTION = null;
-var SEPARATOR = {
-  type: "separator"
-}
+exports.build = function(Application, Menu, IPC, main) {
+  var EMPTY_SUBMENU = [];
+  var NO_ACCELERATOR = null;
+  var NO_SELECTOR = null;
+  var NO_SUBMENU = null;
+  var NO_CLICK_ACTION = null;
+  var SEPARATOR = {
+    type: "separator"
+  }
 
-var shortcut = function() {
-  return Array.prototype.slice.call(arguments).join("+");
-}
+  var shortcut = function() {
+    return Array.prototype.slice.call(arguments).join("+");
+  }
 
-var menuItem = function(label, accelerator, selector, submenu, click) {
-  var item = { label: label };
-  if(accelerator) { item.accelerator = accelerator };
-  if(selector) { item.selector = selector };
-  if(submenu) { item.submenu = submenu };
-  if(click) { item.click = click };
-  return item;
-}
+  var item = function(label, accelerator, selector, submenu, click) {
+    var item = { label: label };
+    if(accelerator) { item.accelerator = accelerator };
+    if(selector) { item.selector = selector };
+    if(submenu) { item.submenu = submenu };
+    if(click) { item.click = click };
+    return item;
+  }
 
-var menuItemWithSelector = function(label, accelerator, selector) {
-  return menuItem(label, accelerator, selector, NO_SUBMENU, NO_CLICK_ACTION);
-}
+  var itemWithSelector = function(label, accelerator, selector) {
+    return item(label, accelerator, selector, NO_SUBMENU, NO_CLICK_ACTION);
+  }
 
-var menuItemWithClickAction = function(label, accelerator, click) {
-  return menuItem(label, accelerator, NO_SELECTOR, NO_SUBMENU, click);
-}
+  var itemWithClickAction = function(label, accelerator, click) {
+    return item(label, accelerator, NO_SELECTOR, NO_SUBMENU, click);
+  }
 
-var subMenu = function(label, accelerator, items) {
-  return menuItem(label, accelerator, NO_SELECTOR, items, NO_CLICK_ACTION);
-}
+  var group = function(label, items) {
+    return item(label, NO_ACCELERATOR, NO_SELECTOR, items, NO_CLICK_ACTION);
+  }
 
-var menuGroup = function(label, items) {
-  return menuItem(label, NO_ACCELERATOR, NO_SELECTOR, items, NO_CLICK_ACTION);
-}
-
-const TEMPLATE = [
-  menuGroup("Lowbrow", [
-    menuItemWithSelector("About Lowbrow",
+  var lowbrowMenuItems = (process.platform != "darwin") ? [] : [
+    itemWithSelector("About Lowbrow",
                          NO_ACCELERATOR,
                          "orderFrontStandardAboutPanel:"),
     SEPARATOR,
-    subMenu("Services",
-            NO_ACCELERATOR,
-            EMPTY_SUBMENU),
-    SEPARATOR,
-    menuItemWithSelector("Hide Lowbrow",
+    itemWithSelector("Hide Lowbrow",
                          shortcut(MODIFIER, "H"),
                          "hide:"),
-    menuItemWithSelector("Hide Others",
+    itemWithSelector("Hide Others",
                          shortcut(MODIFIER, "Shift", "H"),
                          "hideOtherApplications:"),
-    menuItemWithSelector("Show all",
+    itemWithSelector("Show all",
                          NO_ACCELERATOR,
                          "showAll:"),
-    SEPARATOR,
-    menuItemWithSelector("Quit",
-                         shortcut(MODIFIER, "Shift","Q"),
-                         "terminate:")
-  ]),
+    SEPARATOR
+  ];
 
-  menuGroup("Edit", [
-    menuItemWithSelector("Undo",
-                         shortcut(MODIFIER, "Z"),
-                         "undo:"),
-    menuItemWithSelector("Redo",
-                         shortcut(MODIFIER, "Shift", "Z"),
-                         "redo:"),
-    SEPARATOR,
-    menuItemWithSelector("Cut",
-                         shortcut(MODIFIER, "X"),
-                         "cut:"),
-    menuItemWithSelector("Copy",
-                         shortcut(MODIFIER, "C"),
-                         "copy:"),
-    menuItemWithSelector("Paste",
-                         shortcut(MODIFIER, "V"),
-                         "paste:"),
-    menuItemWithSelector("Select All",
-                         shortcut(MODIFIER, "A"),
-                         "selectAll:")
-  ]),
+  lowbrowMenuItems.push(itemWithClickAction("Quit",
+                                                shortcut(MODIFIER, "Q"),
+                                                Application.quit));
 
-  menuGroup("View", [
-    menuItemWithClickAction("Reload",
-                            shortcut(MODIFIER, "R"),
-                            function(){
-                              main.getCurrentWindow().reload();
-                            }),
-    menuItemWithClickAction("Toggle DevTools",
-                            shortcut(MODIFIER, "Alt", "I"),
-                            function(){
-                              // Get webview
-                              // Toggle devtools
-                            })
-  ]),
+  var TEMPLATE = [
+    group("Lowbrow", lowbrowMenuItems),
 
-  menuGroup("Window", [
-    menuItemWithSelector("Minimize",
-                         shortcut(MODIFIER, "M"),
-                         "performMiniaturize:"),
-    menuItemWithSelector("Close",
-                         shortcut(MODIFIER, "W"),
-                         "performClose:"),
-    SEPARATOR,
-    menuItemWithSelector("Bring All to Front",
-                         NO_ACCELERATOR,
-                         "arrangeInFront:")
-  ]),
+    group("Edit", [
+      itemWithClickAction("Undo",
+                              shortcut(MODIFIER, "Z"),
+                              main.webContents.undo),
+      itemWithClickAction("Redo",
+                              shortcut(MODIFIER, "Shift", "Z"),
+                              main.webContents.redo),
+      SEPARATOR,
+      itemWithSelector("Cut",
+                           shortcut(MODIFIER, "X"),
+                           main.webContents.cut),
+      itemWithSelector("Copy",
+                           shortcut(MODIFIER, "C"),
+                           main.webContents.copy),
+      itemWithSelector("Paste",
+                           shortcut(MODIFIER, "V"),
+                           main.webContents.paste),
+      itemWithSelector("Select All",
+                           shortcut(MODIFIER, "A"),
+                           main.webContents.selectAll)
+    ]),
 
-  menuGroup("Help", EMPTY_SUBMENU)
-]
+    group("View", [
+      itemWithClickAction("Reload",
+                              shortcut(MODIFIER, "R"),
+                              function(){
+                                main.webContents.reload();
+                              }),
+      itemWithClickAction("Toggle DevTools",
+                          shortcut(MODIFIER, "Alt", "I"),
+                          function(item, window) {
+                            window.webContents.send("lowbrow:devtools-toggle");
+                          })
+    ]),
 
-Menu.setApplicationMenu(Menu.buildFromTemplate(TEMPLATE));
+    group("Window", [
+      itemWithSelector("Minimize",
+                           shortcut(MODIFIER, "M"),
+                           "performMiniaturize:"),
+      itemWithSelector("Close",
+                           shortcut(MODIFIER, "W"),
+                           "performClose:"),
+      SEPARATOR,
+      itemWithSelector("Bring All to Front",
+                           NO_ACCELERATOR,
+                           "arrangeInFront:")
+    ]),
+
+    group("Help", EMPTY_SUBMENU)
+  ];
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(TEMPLATE));
+}
