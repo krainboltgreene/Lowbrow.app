@@ -4,7 +4,7 @@ exports.build = function(Application, Menu, IPC, main) {
   const NO_ACCELERATOR = null;
   const NO_SELECTOR = null;
   const NO_SUBMENU = null;
-  const NO_CLICK_ACTION = null;
+  const NO_ACTION = null;
   const SEPARATOR = {
     type: "separator"
   }
@@ -23,7 +23,7 @@ exports.build = function(Application, Menu, IPC, main) {
   }
 
   var itemWithSelector = function(label, accelerator, selector) {
-    return item(label, accelerator, selector, NO_SUBMENU, NO_CLICK_ACTION);
+    return item(label, accelerator, selector, NO_SUBMENU, NO_ACTION);
   }
 
   var itemWithClickAction = function(label, accelerator, click) {
@@ -31,7 +31,7 @@ exports.build = function(Application, Menu, IPC, main) {
   }
 
   var group = function(label, items) {
-    return item(label, NO_ACCELERATOR, NO_SELECTOR, items, NO_CLICK_ACTION);
+    return item(label, NO_ACCELERATOR, NO_SELECTOR, items, NO_ACTION);
   }
 
   var lowbrowMenuItems = (process.platform != "darwin") ? [] : [
