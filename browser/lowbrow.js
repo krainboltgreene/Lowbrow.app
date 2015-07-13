@@ -2,11 +2,16 @@
 const Application = require("app");
 const Menu = require("menu");
 const BrowserWindow = require("browser-window");
-const ApplicationMenu = require("./lowbrow/menu");
 const IPC = require("ipc");
 
-require("crash-reporter").start();
-require("electron-debug")();
+const CrashReporter = require("crash-reporter");
+const ElectronDebug = require("electron-debug");
+
+const ApplicationMenu = require("./lowbrow/menu");
+
+CrashReporter.start();
+
+ElectronDebug();
 
 let main;
 
