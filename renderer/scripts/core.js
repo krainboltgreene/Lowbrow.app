@@ -1,5 +1,5 @@
 const Remote = require("remote");
-const IPC = Remote.require("ipc");
+const IPC = require("ipc");
 
 var portalView = document.getElementById("view");
 var locationInput = document.getElementById("location");
