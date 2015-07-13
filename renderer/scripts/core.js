@@ -10,9 +10,8 @@ onload = function() {
     };
   }, false);
 
-IPC.on("lowbrow:devtools-toggle", function(event, arg) {
   console.log("TOGGLING!");
   portalView.openDevTools();
-});
-
+  IPC.on("lowbrow:devtools-toggle", function() {
+  });
 }
