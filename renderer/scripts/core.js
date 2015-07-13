@@ -1,8 +1,8 @@
 const Remote = require("remote");
 const IPC = require("ipc");
+const PortalView = document.getElementById("view");
+const LocationInput = document.getElementById("location");
 
-var portalView = document.getElementById("view");
-var locationInput = document.getElementById("location");
 
 IPC.on("lowbrow:devtools-toggle", function(event, arg) {
   console.log("TOGGLING!");
