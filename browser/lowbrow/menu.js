@@ -1,66 +1,113 @@
-const Menu = require("menu");
+exports.build = function(Application, Menu, IPC, main) {
+  const MODIFIER = "CommandOrControl";
+  const EMPTY_SUBMENU = [];
+  const NO_ACCELERATOR = null;
+  const NO_SELECTOR = null;
+  const NO_SUBMENU = null;
+  const NO_ACTION = null;
+  const SEPARATOR = {
+    type: "separator"
+  }
 
-const MODIFIER = process.platform == "darwin" ? "Command" : "Control"
+  var shortcut = function() {
+    return Array.prototype.slice.call(arguments).join("+");
+  }
 
-const SEPARATOR = {
-  type: "separator"
+  var item = function(label, accelerator, selector, submenu, click) {
+    var item = { label: label };
+    if(accelerator) { item.accelerator = accelerator };
+    if(selector) { item.selector = selector };
+    if(submenu) { item.submenu = submenu };
+    if(click) { item.click = click };
+    return item;
+  }
+
+  var itemWithSelector = function(label, accelerator, selector) {
+    return item(label, accelerator, selector, NO_SUBMENU, NO_ACTION);
+  }
+
+  var itemWithClickAction = function(label, accelerator, click) {
+    return item(label, accelerator, NO_SELECTOR, NO_SUBMENU, click);
+  }
+
+  var group = function(label, items) {
+    return item(label, NO_ACCELERATOR, NO_SELECTOR, items, NO_ACTION);
+  }
+
+  var lowbrowMenuItems = (process.platform != "darwin") ? [] : [
+    itemWithSelector("About Lowbrow",
+                         NO_ACCELERATOR,
+                         "orderFrontStandardAboutPanel:"),
+    SEPARATOR,
+    itemWithSelector("Hide Lowbrow",
+                         shortcut(MODIFIER, "H"),
+                         "hide:"),
+    itemWithSelector("Hide Others",
+                         shortcut(MODIFIER, "Shift", "H"),
+                         "hideOtherApplications:"),
+    itemWithSelector("Show all",
+                         NO_ACCELERATOR,
+                         "showAll:"),
+    SEPARATOR
+  ];
+
+  lowbrowMenuItems.push(itemWithClickAction("Quit",
+                                                shortcut(MODIFIER, "Q"),
+                                                Application.quit));
+
+  var TEMPLATE = [
+    group("Lowbrow", lowbrowMenuItems),
+
+    group("Edit", [
+      itemWithClickAction("Undo",
+                              shortcut(MODIFIER, "Z"),
+                              main.webContents.undo),
+      itemWithClickAction("Redo",
+                              shortcut(MODIFIER, "Shift", "Z"),
+                              main.webContents.redo),
+      SEPARATOR,
+      itemWithSelector("Cut",
+                           shortcut(MODIFIER, "X"),
+                           main.webContents.cut),
+      itemWithSelector("Copy",
+                           shortcut(MODIFIER, "C"),
+                           main.webContents.copy),
+      itemWithSelector("Paste",
+                           shortcut(MODIFIER, "V"),
+                           main.webContents.paste),
+      itemWithSelector("Select All",
+                           shortcut(MODIFIER, "A"),
+                           main.webContents.selectAll)
+    ]),
+
+    group("View", [
+      itemWithClickAction("Reload",
+                              shortcut(MODIFIER, "R"),
+                              function(){
+                                main.webContents.reload();
+                              }),
+      itemWithClickAction("Toggle DevTools",
+                          shortcut(MODIFIER, "Alt", "I"),
+                          function(item, window) {
+                            window.webContents.send("lowbrow:devtools-toggle");
+                          })
+    ]),
+
+    group("Window", [
+      itemWithSelector("Minimize",
+                           shortcut(MODIFIER, "M"),
+                           "performMiniaturize:"),
+      itemWithSelector("Close",
+                           shortcut(MODIFIER, "W"),
+                           "performClose:"),
+      SEPARATOR,
+      itemWithSelector("Bring All to Front",
+                           NO_ACCELERATOR,
+                           "arrangeInFront:")
+    ]),
+
+    group("Help", EMPTY_SUBMENU)
+  ];
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(TEMPLATE));
 }
-
-var shortcut = function() {
-  return Array.prototype.slice.call(arguments).join("+")
-}
-
-var menuItem = function(label, accelerator, selector, submenu, click) {
-  return {
-    label: label,
-    accelerator: accelerator,
-    selector: selector,
-    submenu: submenu,
-    click: click
-  };
-}
-
-var menuGroup = function(label, items) {
-  return menuItem(label, null, null, items)
-}
-
-const TEMPLATE = [
-  menuGroup("Lowbrow", [
-    menuItem("About Lowbrow", null, "orderFrontStandardAboutPanel:", null, null),
-    SEPARATOR,
-    menuItem("Services", null, null, []),
-    SEPARATOR,
-    menuItem("Hide Lowbrow", shortcut(MODIFIER, "H"), "hide:"),
-    menuItem("Hide Others", shortcut(MODIFIER, "Shift", "H"), "hideOtherApplications:"),
-    menuItem("Show All", null, "unhideAllApplications:"),
-    SEPARATOR,
-    menuItem("Quit", shortcut(MODIFIER, "Q")),
-  ]),
-  menuGroup("Edit", [
-    menuItem("Undo", shortcut(MODIFIER, "Z"), "undo:"),
-    menuItem("Redo", shortcut("Shift", MODIFIER, "Z"), "redo:"),
-    SEPARATOR,
-    menuItem("Cut", shortcut(MODIFIER, "X"), "cut:"),
-    menuItem("Copy", shortcut(MODIFIER, "C"), "copy:"),
-    menuItem("Paste", shortcut(MODIFIER, "V"), "paste:"),
-    menuItem("Select All", shortcut(MODIFIER, "A"), "selectAll:")
-  ]),
-  menuGroup("View", [
-    menuItem("Reload", shortcut(MODIFIER, "R"), null, function(){
-      main.getCurrentWindow().reload();
-    }),
-    menuItem("Toggle DevTools", shortcut("Alt", MODIFIER, "I"), null, function(){
-      // Get webview
-      // Toggle devtools
-    })
-  ]),
-  menuGroup("Window", [
-    menuItem("Minimize", shortcut(MODIFIER, "M"), "performMiniaturize:"),
-    menuItem("Close", shortcut(MODIFIER, "W"), "performClose:"),
-    SEPARATOR,
-    menuItem("Bring All to Front", null, "arrangeInFront:")
-  ]),
-  menuGroup("Help", [])
-]
-
-Menu.setApplicationMenu(Menu.buildFromTemplate(TEMPLATE));

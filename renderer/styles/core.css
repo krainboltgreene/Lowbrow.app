@@ -1,22 +1,28 @@
-input#location {
-  height: 5vh;
+nav {
+  height: 25px;
   width: 100vw;
+  background-color: black;
+}
+
+input#location {
+  height: 25px;
+  width: 98vw;
   padding: 0;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 1vw;
+  padding-right: 1vw;
   border: none;
-  background-color: rgb(52, 152, 219);
-  opacity: 0.25;
+  background-color: black;
+  color: white;
 }
 
 input#location:focus {
   outline: 0;
-  background-color: rgb(52, 152, 219);
-  color: white;
-  opacity: 1.0;
 }
 
 section#portal {
-  height: 95vh;
+  position: absolute;
+  top: 25px;
+  bottom: 0;
+  height: 100%;
   width: 100vw;
 }

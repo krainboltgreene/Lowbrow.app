@@ -1,8 +1,20 @@
-var portalView = document.getElementById("view");
-var locationInput = document.getElementById("location");
+const Remote = require("remote");
+const IPC = require("ipc");
+const PortalView = document.getElementById("view");
+const LocationInput = document.getElementById("location");
 
-locationInput.addEventListener("keyup", function(event) {
-  if(event.keyCode === 13) {
-    portalView.src = event.target.value;
-  };
-}, false);
+onload = function() {
+  LocationInput.addEventListener("keyup", function(event) {
+    if(event.keyCode === 13) {
+      PortalView.src = event.target.value;
+    };
+  }, false);
+
+  IPC.on("lowbrow:devtools-toggle", function() {
+    if(PortalView.isDevToolsOpened()) {
+      PortalView.closeDevTools();
+    } else {
+      PortalView.openDevTools();
+    };
+  });
+}
