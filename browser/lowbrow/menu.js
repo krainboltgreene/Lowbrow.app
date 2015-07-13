@@ -1,12 +1,12 @@
 const MODIFIER = "CommandOrControl";
 
 exports.build = function(Application, Menu, IPC, main) {
-  var EMPTY_SUBMENU = [];
-  var NO_ACCELERATOR = null;
-  var NO_SELECTOR = null;
-  var NO_SUBMENU = null;
-  var NO_CLICK_ACTION = null;
-  var SEPARATOR = {
+  const EMPTY_SUBMENU = [];
+  const NO_ACCELERATOR = null;
+  const NO_SELECTOR = null;
+  const NO_SUBMENU = null;
+  const NO_CLICK_ACTION = null;
+  const SEPARATOR = {
     type: "separator"
   }
 
