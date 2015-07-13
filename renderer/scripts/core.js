@@ -3,6 +3,7 @@ const IPC = require("ipc");
 const PortalView = document.getElementById("view");
 const LocationInput = document.getElementById("location");
 
+onload = function() {
 
 IPC.on("lowbrow:devtools-toggle", function(event, arg) {
   console.log("TOGGLING!");
@@ -14,3 +15,4 @@ locationInput.addEventListener("keyup", function(event) {
     portalView.src = event.target.value;
   };
 }, false);
+}
