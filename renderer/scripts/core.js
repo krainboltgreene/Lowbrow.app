@@ -10,7 +10,6 @@ onload = function() {
     };
   }, false);
 
-  console.log("TOGGLING!");
   IPC.on("lowbrow:devtools-toggle", function() {
     if(PortalView.isDevToolsOpened()) {
       PortalView.closeDevTools();
