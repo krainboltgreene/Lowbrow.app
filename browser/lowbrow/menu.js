@@ -1,6 +1,5 @@
-const MODIFIER = "CommandOrControl";
-
 exports.build = function(Application, Menu, IPC, main) {
+  const MODIFIER = "CommandOrControl";
   const EMPTY_SUBMENU = [];
   const NO_ACCELERATOR = null;
   const NO_SELECTOR = null;
