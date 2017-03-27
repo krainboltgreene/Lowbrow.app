@@ -72,7 +72,7 @@
     "clean:pack:linux:x64": "rm -rf ./releases/package/linux/x64"
   },
   "dependencies": {
-    "electron-debug": "^0.1.0"
+    "electron-debug": "^1.1.0"
   },
   "devDependencies": {
     "component": "^1.1.0",
