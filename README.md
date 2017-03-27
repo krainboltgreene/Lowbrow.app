@@ -1,6 +1,8 @@
 Lowbrow.app
 ===========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/krainboltgreene/Lowbrow.app.svg)](https://greenkeeper.io/)
+
 You're working on your latest web application and you realize it's time to smoke test your interface. Gotta check everything lines up! You open (Chrome| Firefox|Safari|Explorer) and 30s later you're still loading 100 tabs, 15 extensions, and connecting to some secret HTTP API to deliver user statistics.
 
 You just wanted to test `localhost:3000`.
